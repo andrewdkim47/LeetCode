@@ -32,3 +32,46 @@ Output: [
 ]
 
 
+class Solution {
+public:
+    vector<vector<string>> solveNQueens(int n) {
+        if (n==0) return {};
+        vector<vector<string>> ans;
+        vector<string> nQueens(n, string(n, '.')); //creates a vector n '....'s.
+        solveNQueens(n, 0, nQueens, ans);
+        return ans;
+    }
+    
+    void solveNQueens(int &n, int row, vector<string> &nQueens, vector<vector<string>> &ans) {
+        if (row == n) {
+            ans.push_back(nQueens);
+            return;
+        }
+        for (int col = 0; col < n; col++) {
+            if (isValid(n, row, col, nQueens)) { // check if valid
+                nQueens[row][col] = 'Q'; //add a choice
+                solveNQueens(n, row + 1, nQueens, ans); // explore choice
+                nQueens[row][col] = '.'; //remove a choice
+            }
+        }
+    }
+    
+    bool isValid(int &n, int row, int col, vector<string> &nQueens) {
+        // check if columns
+        for (int i = 0; i < row; i++) {
+            if (nQueens[i][col] == 'Q') return false;
+        }
+        
+        //check diagonal behind to the left
+        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+            if (nQueens[i][j] == 'Q') return false;
+        }
+        
+        //check diagonal behind to the right
+        for (int i = row - 1, j = col + 1; i >= 0 && j < n; i--, j++) {
+            if (nQueens[i][j] == 'Q') return false;
+        }
+        return true;
+    }
+};
+
