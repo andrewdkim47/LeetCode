@@ -1,0 +1,31 @@
+https://leetcode.com/problems/construct-string-from-binary-tree/submissions/
+   
+   string tree2str(TreeNode* t) {
+        string s ="";
+        helper(t, s);
+        return s;
+    }
+    
+    void helper(TreeNode* t, string &s) {
+        if (!t) return;
+        
+        s += to_string(t->val);
+        if (t->left) {
+            s += "(";
+            // traverse left
+            helper(t->left, s);
+            //close paranthesis
+            s += ")";
+        }
+        else if (!t->left && t->right) {
+            s+= "()";
+        }
+        if (t->right) {
+            s += "(";
+            //traverse right
+            helper(t->right, s);
+            //close paranthesis
+            s += ")";
+        }
+        return;
+    }
