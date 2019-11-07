@@ -1,0 +1,27 @@
+https://leetcode.com/problems/longest-palindrome/
+
+"abccccdd" = 7 "dccaccd"
+"aaa" = 3 "aaa"
+"abb" = 3 "abb"
+
+class Solution {
+public:
+    int longestPalindrome(string s) {
+        unordered_map<char, int> map;
+        
+        for (int i = 0; i < s.length(); i++) {
+            map[s[i]]++;
+        }
+        if (map.size() == 1) return s.length();
+        int largest_odd = 0, ans = 0;
+        for (auto it = map.begin(); it!= map.end(); it++) {
+            if (it->second % 2 == 0) ans += it->second;
+            else {
+                if (it->second != 1) ans += it->second - 1;
+                if (it->second > largest_odd) largest_odd = it->second;
+            }
+        }
+        if (largest_odd!= 0) ans++;
+        return ans;
+    }
+};
