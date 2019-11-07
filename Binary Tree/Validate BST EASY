@@ -1,0 +1,22 @@
+https://leetcode.com/problems/validate-binary-search-tree/
+
+void helper (TreeNode* root, vector<int> &arr) {
+    if (!root) return;
+
+    helper(root->left, arr);
+    arr.push_back(root->val);
+    helper(root->right, arr);
+}
+
+bool hasDuplicates(vector<int> arr) {
+    for (int i = 1; i < arr.size(); i++) {
+        if (arr[i] == arr[i-1]) return false;
+    }
+    return true;
+}
+
+bool isValidBST(TreeNode* root) {
+    vector<int> arr;
+    helper(root, arr);
+    return (is_sorted(arr.begin(), arr.end()) && hasDuplicates(arr));
+}
