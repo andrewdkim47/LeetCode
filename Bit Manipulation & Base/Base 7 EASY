@@ -1,0 +1,14 @@
+https://leetcode.com/problems/base-7/submissions/
+
+class Solution {
+public:
+    string convertToBase7(int num) {
+        int x = abs(num);
+        string ans = (x == 0? "0" : "");
+        while(x) {
+            ans = to_string(x%7) + ans;
+            x /= 7;
+        }
+        return (num>=0? "" : "-") + ans;
+    }
+};
