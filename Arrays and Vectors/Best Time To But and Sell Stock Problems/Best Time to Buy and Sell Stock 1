@@ -1,0 +1,16 @@
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock/submissions/
+Uses Kadanes Algo: solves max subarray problem
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int i = 0, j = 1, min = 0, ans = 0;
+        while (j < prices.size()) {
+            int curr_diff = prices[j] - prices[i];
+            if (curr_diff > ans) ans = curr_diff;
+            if (prices[i] > prices[j]) i = j;
+            j++;
+        }
+        return ans;
+    }
+};
