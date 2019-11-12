@@ -1,0 +1,23 @@
+https://leetcode.com/problems/pascals-triangle/submissions/
+
+class Solution {
+public:
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> ans;
+        recurse(ans, numRows, 1);
+        return ans;
+    }
+    
+    void recurse(vector<vector<int>> &ans, int &numRows, int i) {
+        if (i == numRows+1) return;
+        vector<int> row(i, 1);
+        int k = 1;
+        if (i > 1) {
+            for (int j = 0; j < ans[i-2].size() - 1; ++j) {
+                row[k++] = ans[i-2][j] + ans[i-2][j+1];
+            }   
+        }
+        ans.push_back(row);
+        recurse(ans, numRows, i+1);
+    }
+};
