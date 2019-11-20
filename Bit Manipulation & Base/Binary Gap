@@ -1,0 +1,26 @@
+https://leetcode.com/problems/binary-gap/
+
+class Solution {
+public:
+    int binaryGap(int N) {
+        string number = "";
+        while (N) {
+            if (N % 2 == 0) number = '0' + number;
+            else number = '1' + number;
+            N /= 2;
+        }
+        cout << number << endl;
+        
+        int max = 0, prev = 0;
+        for (int i = 0; i < number.length(); ++i) {
+            if (number[i] == '1') {
+                if (max < i - prev) {
+                    max = i - prev;
+                }
+                prev = i;
+            }
+        }
+        
+        return max; 
+    }
+};
