@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int findContentChildren(vector<int>& g, vector<int>& s) {
+        sort(g.begin(), g.end());
+        sort(s.begin(), s.end());
+        int content = 0, s_iter = 0;
+        set<int> taken;
+        for (int i = 0; i < g.size(); ++i) {
+            while (s_iter < s.size()) {
+                if (g[i] <= s[s_iter] && !taken.count(s_iter)) {
+                    taken.insert(s_iter);
+                    content++;
+                    s_iter = s.size();
+                }
+                s_iter++;
+            }
+            s_iter = 0;
+        }
+        return content;
+    }
+};
+
+FASTER
+int findContentChildren(vector<int>& g, vector<int>& s) {
+        sort(g.begin(),g.end());
+        sort(s.begin(),s.end());
+        int i = 0, j=0;
+        while(i<g.size() && j<s.size()){
+            if(s[j]>=g[i])
+                i++; // when the child get the cookie, foward child by 1
+            j++;
+        }
+        return i;
+    }
