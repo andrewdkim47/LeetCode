@@ -1,0 +1,41 @@
+https://www.youtube.com/watch?v=XYQecbcd6_c
+
+https://leetcode.com/problems/longest-palindromic-substring/
+
+Checking eery single substring is n^2.
+Checking if any given string is a palindrome or not is n.
+
+The fastest way to do this is n^2.
+
+
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        string ans = "";
+        int longest = 0;
+        
+        for (int i = 0; i < s.length(); ++i) {
+            // odd numbers
+            int left = i; int right = i;
+            while (left >= 0 && right < s.length() && s[left] == s[right]) {
+                if (longest < right - left + 1) {
+                    longest = right - left + 1;
+                    ans = s.substr(left, right - left + 1);
+                }
+                left--; right++;
+            }
+            
+            // even numbers
+            left = i; right = i + 1;
+            while (left >= 0 && right < s.length() && s[left] == s[right]) {
+                if (longest < right - left + 1) {
+                    longest = right - left + 1;
+                    ans = s.substr(left, right - left + 1);
+                }
+                left--; right++;
+            }
+        }
+        return ans;
+        
+    }
+};
