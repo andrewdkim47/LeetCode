@@ -1,0 +1,33 @@
+https://leetcode.com/problems/generate-parentheses/
+
+we want to generate all possible complete paranetheses. This calls for recursion.
+
+Recursion is intuitive, we may not know all the inner workings and math of how the algorithm works, but sometimes we can still deduce what little change we need to make in our recursive 
+call in order for the code to work. 
+
+Its basically from experience.
+
+
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> ans;
+        helper(ans, "", n, 0);
+        return ans;
+    }
+    
+    void helper(vector<string> &ans, string s, int n, int m) {
+        if (n==0 && m==0) {
+            ans.push_back(s);
+            return;
+        }
+        if (m > 0) {
+            helper(ans, s+')', n, m-1); 
+        }
+        if (n > 0) {
+            helper(ans, s+'(', n-1, m+1);
+        }
+    }
+};
+
+for each step, we wanna either add a ) or a (. 
