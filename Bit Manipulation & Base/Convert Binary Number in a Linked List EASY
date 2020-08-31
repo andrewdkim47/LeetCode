@@ -1,0 +1,53 @@
+https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/submissions/
+
+
+HOW DO YOU CONVERT A BINARY TO A INT? https://www.rapidtables.com/convert/number/how-binary-to-decimal.html
+
+C++ METHOD (n^2)
+
+class Solution {
+public:
+    int getDecimalValue(ListNode* head) {
+        int total = 0;
+        int max = -1;
+        ListNode *temp = head;
+        while (temp) {
+            max++;
+            temp = temp->next;
+        }
+        while(head) {
+            total += head->val * pow(2, max--);
+            head = head->next;
+        }        
+        return total;
+    }
+};
+
+-----------------------PYTHON----------------------------------------------------
+
+THIS METHOD is kinda cheating cuz im just using a python library function. It doesnt take any logic.
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def getDecimalValue(self, head: ListNode) -> int:
+        binary = ""
+        while (head):
+            binary += str(head.val)
+            head = head.next;
+        
+        return int(binary, 2)
+
+
+------------------------------------------------------------------------
+WHY Does this work?
+class Solution:
+    def getDecimalValue(self, head: ListNode) -> int:
+        answer = 0
+        while head: 
+            answer = 2*answer + head.val 
+            head = head.next 
+        return answer 
