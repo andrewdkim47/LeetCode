@@ -1,0 +1,25 @@
+https://leetcode.com/problems/rotate-array/
+
+o(N) and O(N) space
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        vector<int> ans;
+        int index = nums.size() - (k % nums.size());
+        int counter = 0;
+        while (counter < nums.size()) {
+            if (index == nums.size()) {
+                index = 0;
+            }
+            ans.push_back(nums[index++]);
+            counter++;
+        }
+        nums.assign(ans.begin(), ans.end());
+    }
+};
+
+
+class Solution(object):
+    def rotate(self, nums, k):
+        k = k % len(nums)
+        nums[:] = nums[-k:] + nums[:-k]
