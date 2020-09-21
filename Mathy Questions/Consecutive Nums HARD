@@ -1,0 +1,32 @@
+https://leetcode.com/problems/consecutive-numbers-sum/
+
+video Explanation:
+https://www.youtube.com/watch?v=oKOCYZd4m7E&feature=youtu.be
+
+
+class Solution {
+public:
+    int consecutiveNumbersSum(int N) {
+        int ans = 0;
+        for (int n = 2; (n*(n+1)/2) <= N; ++n) {
+            if ((N - (n * (n+1)/2)) % n == 0) ans++;    
+        }
+        return ans + 1;
+    }
+};
+
+the equation for the sum of consecutive numbers is n*(n+1) /2
+
+with n consecutive integers,
+the first number we can form is: 1 + 2 + ... + n (n being the length of the consecutive numbers)
+the second number we can form is: 2+ 3 + ... + n + (n+1)
+ OR                             : 1 + 2 + .... + n + n
+ and so one....                 : 1 + 2 + ... + n + n + n
+ 
+ SO a number N can be formed by n consecutive integers, if :::::
+    N - ( 1 + 2 + ... n) modulo n is zero.
+    
+ So all we need to do is measure all possible LENGTHS of consecutive numbers starting from 2, 
+ up till the consecutive sum of that length exceeds N.
+ 
+ then for each length, we see if that case is true, where the modulo == 0. if so, then for that length we found a keeper.
