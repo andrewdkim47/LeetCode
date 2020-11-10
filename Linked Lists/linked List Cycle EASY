@@ -1,0 +1,33 @@
+https://leetcode.com/problems/linked-list-cycle/submissions/
+
+FLOYDS CYCLE DETECTION PROBLEM (Tortoise and the Hare)
+
+1st SOLUTION
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        if (!head) return false;
+        ListNode *temp1 = head;
+        ListNode *temp2 = head->next;
+        if (!temp1 || !temp2) return false;
+        while(temp1 && temp2) {
+            if (temp1 == temp2) {
+                return true;
+            }
+            temp1 = temp1->next;
+            temp2 = temp2->next;
+            if (temp2) temp2 = temp2->next;
+        }
+        return false;
+    }
+};
+
+MESSY AF THO but O(n) O(1) space.
