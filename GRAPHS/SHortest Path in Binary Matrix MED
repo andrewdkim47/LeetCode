@@ -1,0 +1,37 @@
+https://leetcode.com/problems/shortest-path-in-binary-matrix/submissions/
+
+class Solution {
+public:
+    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
+        if (grid[0][0] != 0) return -1;
+        int shortestPath = 0; int row = grid.size(); int col = grid[0].size();
+        queue<pair<int, int>> q;
+        vector<vector<bool>> visited(row,vector(col,false));
+        vector<pair<int,int>> dirs = { {-1, 0}, {1, 0}, {0, -1}, {0, 1}, 
+                                      {-1, 1}, {1, 1}, {-1, -1}, {1, -1} };
+        q.push({0,0});
+        visited[0][0] = true;
+        while(!q.empty()) {
+            int size = q.size();
+            shortestPath++;
+            for(int i = 0; i < size; ++i) {
+                int x = q.front().first;
+                int y = q.front().second;
+                if(x == row-1 && y == col-1){ //check for lower right corner
+                    return shortestPath;
+                }
+                q.pop();
+                for (auto dir : dirs) {
+                    int nx = x + dir.first;
+                    int ny = y + dir.second;
+                    if (nx >= 0 && nx < row && ny >= 0 && ny < col &&
+                       !visited[nx][ny] && grid[nx][ny] == 0) {
+                        q.push({nx, ny});
+                        visited[nx][ny] = true;
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+};
