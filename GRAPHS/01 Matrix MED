@@ -1,0 +1,42 @@
+https://leetcode.com/problems/01-matrix/submissions/
+
+class Solution {
+public:
+    vector<vector<int>> updateMatrix(vector<vector<int>>& matrix) {
+        // bfs traversal of matrix
+        
+        int row = matrix.size();
+        int col = matrix[0].size();
+        int maxDist = row + col;
+        queue<pair<int, int>> q;
+        vector<pair<int,int>> dirs = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
+        vector<vector<bool>> visited(row, vector(col, false));
+        for (int i = 0; i < row; ++i) {
+            for (int j = 0; j < col; ++j) {
+                if (matrix[i][j] == 0) q.push({i,j});
+            }
+        }
+        
+        while(!q.empty()) {
+            int size = q.size();
+            for (int i = 0; i < size; ++i) {
+                int x = q.front().first;
+                int y = q.front().second;
+                q.pop();
+                for (auto dir : dirs) {
+                    int nx = x + dir.first;
+                    int ny = y + dir.second;
+                    if (nx >= 0 && nx < row && ny >= 0 && ny < col && 
+                        matrix[nx][ny] == 1 && !visited[nx][ny]) {
+                        q.push({nx, ny});
+                        matrix[nx][ny] = matrix[x][y] + 1;
+                        visited[nx][ny] = true;
+                    } 
+                }
+                
+            }
+            
+        }
+        return matrix;   
+    }
+};
