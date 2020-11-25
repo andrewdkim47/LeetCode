@@ -4,55 +4,41 @@ class Mystring {
   
 public: 
     // No arguments Constructor 
-    Mystring(); 
+    Mystring() {
+        str = new char[1]; 
+        str[0] = '\0'; 
+    }
   
     // Constructor with 1 arguments 
-    Mystring(char* val); 
+    Mystring(char* val) {
+        if (val == nullptr) { 
+            str = new char[1]; 
+            str[0] = '\0'; 
+        } 
+        else { 
+            str = new char[strlen(val) + 1]; 
+            strcpy(str, val);
+        } 
+    }
   
     // Copy Constructor 
-    Mystring(const Mystring& source); 
+    Mystring(const Mystring& source) {
+        str = new char[strlen(source.str) + 1]; 
+        strcpy(str, source.str); 
+    }
   
-    // Move Constructor 
-    Mystring(Mystring&& source); 
+    // Move Constructor Mystring{Mystring}
+    Mystring(Mystring&& source) {
+        str = source.str; 
+        source.str = nullptr; 
+    }
+    
+    // operator overload = 
+    Mystring operator=(const Mystring& source) {
+        str = new char[strlen(source.str) + 1]; 
+        strcpy(str, source.str); 
+    }
   
     // Destructor 
     ~Mystring() { delete str; } 
 }; 
-
-------------Implementation----------------
-
-// constructor : no args
-Mystring::Mystring() : str{ nullptr } 
-{ 
-    str = new char[1]; 
-    str[0] = '\0'; 
-} 
-  
-// Function to illustrate Constructor 
-// with one arguments 
-Mystring::Mystring(char* val) 
-{ 
-    if (val == nullptr) { 
-        str = new char[1]; 
-        str[0] = '\0'; 
-    } 
-    else { 
-        str = new char[strlen(val) + 1]; 
-        strcpy(str, val);
-    } 
-} 
- 
-// Copy Constructor 
-Mystring::Mystring(const Mystring& source) 
-{ 
-    str = new char[strlen(source.str) + 1]; 
-    strcpy(str, source.str); 
-} 
-  
-// Function to illustrate 
-// Move Constructor 
-Mystring::Mystring(Mystring&& source) 
-{ 
-    str = source.str; 
-    source.str = nullptr; 
-} 
